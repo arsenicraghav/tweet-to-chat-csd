@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CSD - Twitter</title>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+    <link rel="stylesheet" href="stylesheets/angular-simple-chat.css">
+
+    <style>
+        .inputdemoIcons {
+            min-height: 48px;
+        }
+
+        .inputdemoIcons md-input-container:not(.md-input-invalid) > md-icon.email {
+            color: green;
+        }
+
+        .inputdemoIcons md-input-container.md-input-invalid > md-icon.email {
+            color: red;
+        }
+    </style>
+
+</head>
+<body ng-app="app" ng-controller="AppCtrl" ng-cloak>
+
+<% if(user) { %>
+<div layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons">
+
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>CSD - Twitter - <%= user %> (<a href='/logout'>logout</a>)</span>
+        </h2>
+    </md-toolbar>
+</div>
+
+<% if(username && displayName && id && socket_host && activity_event) { %>
+<h2 class="md-toolbar-tools">
+    <span> Twitter Handle: <%= displayName %></span>
+</h2>
+
+<div>
+
+    <div class="chat-container full-height">
+        <simple-chat
+                messages="messages"
+                local-user="you"
+                send-function="sendMessage"
+                send-button-text="Send"
+                show-user-avatar="true"
+                show-composer="true"
+                composer-placeholder-text="Write your message here"
+        ></simple-chat>
+    </div>
+</div>
+<% } else { %>
+<ul>
+    <li>
+        <a href='/subscriptions/add'>Add Twitter Account</a>
+    </li>
+</ul>
+
+<% } %>
+<% } else { %>
+
+<div layout="column" layout-padding="" ng-cloak="" class="inputdemoIcons">
+
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">
+            <span>CSD - Twitter - Passwordless SignUp</span>
+        </h2>
+    </md-toolbar>
+    <md-content class="md-no-momentum">
+        <md-input-container class="md-block">
+            <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon>
+            <input ng-model="user.email" type="email" placeholder="Email (required)" ng-required="true">
+        </md-input-container>
+    </md-content>
+    <div class="dialog-demo-content" layout="row" layout-wrap layout-margin>
+        <md-button class="md-primary md-raised" ng-click="showAdvanced($event)" flex="10" flex-gt-md="auto">Register
+        </md-button>
+    </div>
+    <script type="text/ng-template" id="toast-template.html">
+        <md-toast>
+            <span class="md-toast-text" flex>Login Link Sent!</span>
+            <md-button class="md-highlight" ng-click="openMoreInfo($event)">
+                More info
+            </md-button>
+            <md-button ng-click="closeToast()">
+                Close
+            </md-button>
+        </md-toast>
+    </script>
+
+</div>
+
+<% } %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+
+<script src="javascript/moment.js"></script>
+<script src="javascript/en-gb.js"></script>
+<script src="javascript/angular-simple-chat.js"></script>
+<script src="javascript/templates.js"></script>
+<script src="javascript/app.js"></script>
+<script src="javascript/app.endpoints.js"></script>
+
+<% if(user && username && displayName && id && socket_host && activity_event) { %>
+<script src="socket.io/socket.io.js"></script>
+<script>
+    window.onload =function(){
+        angular.element(document.querySelector('.chat-container')).scope().activityConnect('<%= socket_host %>', '<%= activity_event %>', '<%= id %>');
+        angular.element(document.querySelector('.chat-container')).scope().setYou('<%= id %>', '<%= displayName %>');
+    }
+</script>
+<% }%>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "name": "tweet-to-chat-csd",
+  "version": "1.0.0",
+  "description": "Sample web app using twitter as Customer Service Desk",
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "command-line-args": "^5.0.1",
+    "cookie-parser": "~1.4.3",
+    "csurf": "^1.9.0",
+    "ejs": "^2.5.7",
+    "emailjs": "^2.2.0",
+    "express": "4.13.3",
+    "express-session": "^1.15.6",
+    "http-auth": "^3.2.3",
+    "memory-cache": "^0.2.0",
+    "mongojs": "^2.6.0",
+    "morgan": "~1.9.0",
+    "nconf": "^0.8.4",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "passwordless": "*",
+    "passwordless-mongostore": "*",
+    "prompt-promise": "^1.0.3",
+    "query-string": "^5.0.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "socket.io": "2.0.4",
+    "uuid": "^3.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": " https://github.com/arsenicraghav/tweet-to-chat-csd.git"
+  },
+  "author": "Raghvendra Kumar(mail.raghvendra.kumar@gmail.com",
+  "license": "MIT"
+}
